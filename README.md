@@ -1,1 +1,34 @@
 # shrewdies.org
+
+## 231216 create
+
+Add dockerfile from [break away community](https://breakaway.community/docker-setup)
+
+```bash
+version: '3'
+services:
+  shrewdies:
+    image: pspc/ecency-boilerplate:legacy
+    container_name: shrewdies
+    ports:
+      - "3000:3000"
+    environment:
+      - USE_PRIVATE=1
+      - HIVE_ID=hive-153850
+      - TAGS=learn,learners,learning,hivelearner,hivelearners
+    networks:
+      - my_network
+    restart: always
+  nginx:
+    image: igormuba/nginx-to-docker:latest
+    ports:
+      - "80:80"
+    environment:
+      - TEST1=learn.shrewdies.org_shrewdies:3000
+    networks:
+      - my_network
+    restart: always
+networks:
+  my_network:
+    driver: bridge
+```
